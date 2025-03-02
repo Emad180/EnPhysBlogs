@@ -14,7 +14,7 @@ body {
     position: absolute; width: 100px; height: 70px; right: 5px;
 }
 .brand-title{
-    position: absolute; color: white; left: 75px; top: -22px; font-size: xx-large;
+    position: absolute; color: white; left: 75px; margin-top: 10px; font-size: xx-large;
 }
 .toggle-button .bar {
     height: 4px;
