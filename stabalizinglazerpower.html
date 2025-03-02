@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/forallblogs.css">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="canonical" href="https://enphysblogs.sci-sim.com/stabalizinglazerpower.html" />
+    <meta name="description" content=" This blog post is all about stablizing a solid state laser diode intensity using Raspberry Pi ">
+    <meta name="keywords" content=" Solid State Laser Diode, Stability, Applications, raspberry pi, Electronics Control, Python ">
+    <meta name="author" content="Emad Hasabeldaim Hadi Hasabeldaim">
+    <script type="text/javascript"  src="js/js.js"></script>
+    <title> Nanotechnology concept explained in simple examples </title>
+</head>
+
+<body>
+    <header> 
+        <nav class='navbar'>
+            <input type='checkbox' id='check'>
+            <label for='check' class='toggle-button'>   
+                <span class='bar'></span>
+                <span class='bar'></span>
+                <span class='bar'></span>
+            </label>
+
+            <p class="brand-title">Sci-Sim</p>
+            <img class='logo' src="images/logo.png" alt="srearch icon">
+
+            <ul id='menu'>
+                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search....">
+                <li><a href="https://sci-sim.com/"><b>Home</b></a></li>
+                <li><a href="nanotechnologyconcept.html"><b> Nanotechnology in simple examples  </b></a></li>
+                <li><a href="stabalizinglazerpower.html"><b> Stabilizing laser power of a solid-state laser diode  </b></a></li>
+            </ul>
+        </nav>
+
+    </header>
+
+    <div class='body-content'>
+        <h2> Stabilizing the laser power of a solid-state laser diode instrument </h2>
+        <p>
+            The importance of lasers nowadays arose from their wide range of applications including 
+            medicine, manufacturing, research, communication, etc. One major issue associated with
+             lasers is their sensitivity to the surrounding environment parameters such as
+              temperature, humidity, and mechanical vibrations. Minor changes in these parameters 
+              manifest in fluctuation of the laser's power which affects the final processing 
+              outcomes. Hence, stabilizing their output powers is critical to guarantee a precise 
+              and highly controlled process. <br>
+            Even though laser devices come with internal mechanisms such as cooling systems to 
+            enhance stability, it is not enough because variation in the external surroundings 
+            affect these internal mechanisms which impact the final laser stability. <br> 
+            This article demonstrates how I stabilized the laser's power of a solid-state laser 
+            diode, for research purposes. The active stabilization method is used via the 
+            implementation of feedback signal technique.     
+        </p>
+
+        <h3>Apparatus required</h3>
+        <p>In this section, I will introduce you to all the apparatus that I used and the function 
+            of each one of them.</p>
+        <ol>
+            <li>Diode-pumped Solid-state laser diode (980 nm) unit produces power > 2.5 W, used as 
+                the laser source.</li>
+            <li>Ocean optics USB2000+ spectrometer to monitor the laser intensity.</li>
+            <li>Convex lens to focu the laser beam.</li>
+            <li>Quartz slide to split the laser beam into main and feedback beams.</li>
+            <li>Stepper motor and strip of aluminum sheet to control the laser intensity by 
+                blocking/allowing part of the laser beam.</li>
+            <li>Power meter to measure the feedback laser power and send readings to the 
+                microcontroller (Raspberry Pi).</li>
+            <li>Raspberry Pi Pico for controlling the stepper motor with strip of the aluminum 
+                sheet, the raspberry Pi is fixed on an electronic board.</li>
+            <li>Motor drive IC, which takes signal from the Raspberry Pi, amplifies it, and turn 
+                the stepper motor.</li>
+            <li>DC power supply to power the electronic control circuit (Raspberry Pi plus Motor 
+                drive IC).</li>
+            <li>Two PCs, one for the Ocean optics USB2000+ spectrometer to monitor the laser 
+                intensity, and the second PC for the power meter to read the feedback laser power.
+                 Note that we could have used only one PC for monitoring the laser intensity via 
+                 the Ocean optic spectrometer and the feedback signal power via the power meter.
+                  However, due to licensing issues which restricted the use of software on a 
+                  specific PC, we were forced to use both PCs.</li>
+            <li>Stands for holding the optical components and devices.</li>
+        </ol>
+
+        <h3>How the system works</h3>
+        <p>In this section I will explain how the whole system works and the role of each 
+            component. We use the schematic below which represents the real setup for explanation</p>
+        <div class="single-image">
+            <img class='img' src="images/laserstability/lasersetup.png" alt="lasersetup">
+        </div>
+        <p>
+            Firstly, the laser source produces a laser beam that passes near the AL strip and then 
+            through a quartz plate. We will come back to the function of the AL strip and how it 
+            works shortly. The quartz plate reflects about 5% of the laser beam back while the rest 
+            passes through the convex lens and focuses on the sample. The quartz works as a beam 
+            splitter and due to its high stability, the ratio between the reflected and passed laser 
+            power (5: 95) remains constant. If we know the intensity of the reflected laser then we 
+            know the intensity of the passing laser beam as well. A power meter is now used to 
+            measure the intensity of the reflected laser which we now call feedback/control signal. 
+            The feedback signal which represents the laser power is continuously monitored and the 
+            value is sent to the PC on the left. <br> 
+            The second part of the control is the electronic circuit which reads the feedback signal 
+            power and decides to turn the aluminum strip left or right by using the stepper motor. 
+            I have programed the Raspberry Pi Pico using Python so that it keeps an eye on the 
+            feedback signal power, and if the power is below certain (pre-defined) value, the 
+            stepper motor turns the aluminum strip to the right which allows more laser beam to pass
+             through, otherwise blocks parts of the laser beam. Hence, the laser power/intensity 
+             beyond the quartz plate remains stable and unchanged. Note that a predefined laser 
+             power must be inserted in the Python script before starting any measurement. 
+             Nevertheless, the laser intensity requires adjustment in relation to the aluminum strip
+              position so that it is not too open or closed. <br>
+            On the right-hand side, the stable laser beam is focused on a sample, and both the laser
+             and sample emissions are measured using an Ocean optics USB2000+ spectrometer. The 
+             filter is used to attenuates the laser intensity so that the detector is not damaged. 
+             The sample part is what this setup is used for, but you can ignore it since this 
+             article is only about the laser stability mechanism. The following photo depicts the 
+             setup in real life 
+        </p>
+        <div class="single-image">
+            <img class='img' src="images/laserstability/lasersetup1.png" alt="lasersetup">
+        </div>
+        <p>
+            The following figures show the laser intensity monitored for about 24 hours before and 
+            after the implementation of the stability mechanism. It can clearly be seen on the 
+            right-side figure, before the stability mechanism implementation that the laser 
+            intensity is unstable due to surrounding environment which is high likely temperature 
+            and humidity fluctuations. The left-side figure proof the effectiveness of the stability 
+            mechanism which resulted in a very stable laser power/intensity. <br>
+            Remember, there is always a different way to stabilize the laser power, depending on 
+            many factors such as application, type of laser, etc.
+        </p>
+        <div class="single-image">
+            <img class='img' src="images/laserstability/result.png" alt="lasersetup">
+        </div>
+       
+        <h4> By <br>
+            Emad Hasabeldaim (PhD) <br>
+            Email: <a href = "mailto: contact@sci-sim.com">contact@sci-sim.com</a>
+        </h4>
+        <br>
+
+        <div class='bottom-bar'>
+            <div class='section1'>
+                Contact us: <br>
+                Email: <a href = "mailto: contact@sci-sim.com">contact@sci-sim.com</a> <br>
+                All rights reserved &copy; Sci-Sim 
+            </div>
+            <div class='section2'>
+                <p><a href="https://sci-sim.com/about">About Sci-Sim</a> </p>
+                <p> <a href="https://sci-sim.com/newsletter.html">Our terms & conditions</a></p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html> 
+
+    
