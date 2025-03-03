@@ -112,6 +112,15 @@ ul input {
 .section1{
     width: 50%; padding: 2%; text-align: center; 
 }
+.section1 a{
+    font-style: italic; text-decoration: none; color: white; font-size: medium;
+}
+.section1 a:hover{
+    background-color: rgb(61, 60, 60);
+}
+.section1 p{
+    margin: 0px;
+}
 .section2{
     width: 50%; padding: 2%; text-align: center; 
 }
