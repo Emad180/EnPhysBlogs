@@ -84,6 +84,9 @@ ul input {
    top: 71px; margin-left: 28%; padding: 0; text-align: justify; position: relative;
     width: 70%; background-color: white; line-height: 2rem; 
 }
+h1{
+    font-size: xx-large;
+}
 .single-image{
     display: block; width: 100%; height: 50%;   margin-left: auto;
     margin-right: auto;
